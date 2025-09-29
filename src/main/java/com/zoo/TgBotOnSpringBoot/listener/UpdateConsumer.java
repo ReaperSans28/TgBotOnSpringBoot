@@ -13,15 +13,32 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
+/**
+ * Класс UpdateConsumer отвечает за обработку обновлений от Telegram.
+ * Реализует интерфейс LongPollingSingleThreadUpdateConsumer для последовательной обработки обновлений в одном потоке.
+ */
 @Component
 public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
+    /**
+     * Клиент для отправки запросов к Telegram API.
+     */
     private final TelegramClient telegramClient;
 
-    public UpdateConsumer(){
-        this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ"); 
-        // рандомный нерабочий токен
+    /**
+     * Конструктор UpdateConsumer.
+     * Инициализирует TelegramClient с заданным токеном (Сейчас токен тестовый и нерабочий).
+     */
+    public UpdateConsumer() {
+        this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
     }
 
+    /**
+     * Обработка поступившего обновления.
+     * При вызове команды /start
+     * вызывает метод sendShelters для отправки приветственных сообщений, с клавиатурой выбора приюта.
+     *
+     * @param update объект обновления от Telegram
+     */
     @Override
     public void consume(Update update) {
         if (update.hasMessage()) {
@@ -34,6 +51,12 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         }
     }
 
+    /**
+     * Отправка пользователю приветственного сообщения и клавиатуры для выбора приюта.
+     * Клавиатура содержит кнопки "Приют для кошек" и "Приют для собак" (На данный момент не работают).
+     *
+     * @param chatId идентификатор чата, куда отправлять сообщения
+     */
     private void sendShelters(Long chatId) {
         SendMessage helloWorld = SendMessage.builder()
                 .text("*Приветствие*\nКнопочки нерабочие кстати")
@@ -45,16 +68,16 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
                 .build();
 
         var butt1 = InlineKeyboardButton.builder()
-        .text("Приют для кошек")
-        .callbackData("catShelter")
-        .build();
+                .text("Приют для кошек")
+                .callbackData("catShelter")
+                .build();
         var butt2 = InlineKeyboardButton.builder()
-        .text("Приют для собак")
-        .callbackData("dogShelter")
-        .build();
+                .text("Приют для собак")
+                .callbackData("dogShelter")
+                .build();
         List<InlineKeyboardRow> keyboardRows = List.of(
-            new InlineKeyboardRow(butt1),
-            new InlineKeyboardRow(butt2)
+                new InlineKeyboardRow(butt1),
+                new InlineKeyboardRow(butt2)
         );
         InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(keyboardRows);
 
@@ -63,8 +86,8 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         try{
             telegramClient.execute(helloWorld);
             telegramClient.execute(message);
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
