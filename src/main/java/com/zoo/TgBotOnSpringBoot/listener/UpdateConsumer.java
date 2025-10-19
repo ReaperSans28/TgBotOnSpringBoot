@@ -26,7 +26,7 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
      * Инициализирует TelegramClient с заданным токеном (Сейчас токен тестовый и нерабочий).
      */
     public UpdateConsumer() {
-        this.telegramClient = new OkHttpTelegramClient("8102494568:AAG3m0hym73Asidj6p4o6RSsxzkVIMBWBHU");
+        this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
         this.callbackService = new CallbackService(this.telegramClient);
         this.messageService = new MessageService(this.telegramClient);
     }
