@@ -8,6 +8,6 @@ import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 public class BotConfiguration {
     @Bean
     public OkHttpTelegramClient telegramClient() {
-        return new OkHttpTelegramClient("8102494568:AAG3m0hym73Asidj6p4o6RSsxzkVIMBWBHU");
+        return new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
     }
 }
