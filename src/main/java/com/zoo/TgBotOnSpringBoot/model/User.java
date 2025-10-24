@@ -7,17 +7,23 @@ import javax.persistence.Table;
 @Table
 public class User {
     
-    private long userId;
+    private Long userId;
     private long userTgId;
-    private boolean isRegistrated;
     private String userContactDetails;
     private boolean isVoloteer;
 
-    public long getUserId() {
+    public User(Long userId, long userTgId, String userContactDetails, boolean isVoloteer){
+        this.userId = userId;
+        this.userTgId = userTgId;
+        this.userContactDetails = userContactDetails;
+        this.isVoloteer = isVoloteer;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -27,14 +33,6 @@ public class User {
 
     public void setUserTgId(long userTgId) {
         this.userTgId = userTgId;
-    }
-
-    public boolean isIsRegistrated() {
-        return isRegistrated;
-    }
-
-    public void setIsRegistrated(boolean isRegistrated) {
-        this.isRegistrated = isRegistrated;
     }
 
     public String getUserContactDetails() {

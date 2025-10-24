@@ -5,7 +5,6 @@ import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import com.zoo.TgBotOnSpringBoot.service.CallbackService;
 import com.zoo.TgBotOnSpringBoot.service.MessageService;
 
 /**
@@ -18,7 +17,6 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
      * Клиент для отправки запросов к Telegram API.
      */
     private final OkHttpTelegramClient telegramClient;
-    private final CallbackService callbackService;
     private final MessageService messageService;
 
     /**
@@ -27,7 +25,6 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
      */
     public UpdateConsumer() {
         this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
-        this.callbackService = new CallbackService(this.telegramClient);
         this.messageService = new MessageService(this.telegramClient);
     }
 
@@ -43,7 +40,7 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         if (update.hasMessage()) {
             messageService.handleMessage(update.getMessage());
         } else if (update.hasCallbackQuery()) {
-            callbackService.handleCallbackQuery(update.getCallbackQuery());
+            messageService.handleCallbackQuery(update.getCallbackQuery());
         }
     }
 }

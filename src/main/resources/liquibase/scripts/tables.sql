@@ -4,14 +4,12 @@
 CREATE TABLE users (
 user_id serial PRIMARY KEY,
 user_tg_id bigint,
-is_registered bool,
 user_contact_details text,
 is_voloteer bool
 );
 
 create table shelter (
 shelter_id serial primary key,
-shelter_type text,
 shelter_info text,
 address text,
 shelter_schedule text,
@@ -29,6 +27,15 @@ adopter_status text
 create table daily_report (
 report_id serial primary key,
 adopter_id references adopter(adopter_id),
+report_details text,
 report_date date,
 is_approved bool
 );
+
+create table animal (
+animal_id serial primary key,
+animal_name text,
+animal_age decimal(3,1),
+animal_decription text,
+animal_status text --в приюте/забронирован/испытательный срок/ взяли
+)

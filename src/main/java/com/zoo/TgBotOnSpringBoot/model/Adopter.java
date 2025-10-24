@@ -40,7 +40,7 @@ public class Adopter {
         this.adopterStatus = adopterStatus;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return user.getUserId();
     }
 

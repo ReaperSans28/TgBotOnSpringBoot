@@ -7,7 +7,6 @@ import javax.persistence.Table;
 @Table
 public class Shelter {
     private long shelterId;
-    private String shelterType; //для кошек/собак
     private String shelterInfo;
     private String address;
     private String shelterSchedule;
@@ -19,14 +18,6 @@ public class Shelter {
 
     public void setShelterId(long shelterId) {
         this.shelterId = shelterId;
-    }
-
-    public String getShelterType() {
-        return shelterType;
-    }
-
-    public void setShelterType(String shelterType) {
-        this.shelterType = shelterType;
     }
 
     public String getShelterInfo() {

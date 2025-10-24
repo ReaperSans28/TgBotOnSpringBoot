@@ -12,6 +12,7 @@ public class DailyReport {
     private long reportId;
     @ManyToOne
     private Adopter adopter;
+    private String reportDetails;
     private Date reportDate;
     private boolean isApproved; //одобрен ли волонтёром
 
@@ -45,5 +46,13 @@ public class DailyReport {
 
     public void setIsApproved(boolean isApproved) {
         this.isApproved = isApproved;
+    }
+
+    public String getReportDetails() {
+        return reportDetails;
+    }
+
+    public void setReportDetails(String reportDetails) {
+        this.reportDetails = reportDetails;
     }
 }
