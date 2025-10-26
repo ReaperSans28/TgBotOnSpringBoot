@@ -26,7 +26,7 @@ adopter_status text
 
 create table daily_report (
 report_id serial primary key,
-adopter_id references adopter(adopter_id),
+adopter_id bigint references adopter(adopter_id),
 report_details text,
 report_date date,
 is_approved bool

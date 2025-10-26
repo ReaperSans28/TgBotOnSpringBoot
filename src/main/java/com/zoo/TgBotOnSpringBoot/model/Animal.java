@@ -1,22 +1,42 @@
 package com.zoo.TgBotOnSpringBoot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "animals")
 public class Animal {
-    private long animalId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long animalId;
+
+    @Column(name = "animal_name")
     private String animalName;
-    private int animalAge;
+
+    @Column(name = "animal_age")
+    private Integer animalAge;
+
+    @Column(name = "animal_description", columnDefinition = "TEXT")
     private String animalDescription;
+
+    @Column(name = "animal_status")
     private String animalStatus;
 
-    public long getAnimalId() {
+    public Animal() {
+    }
+
+    public Animal(String animalName, Integer animalAge, String animalDescription, String animalStatus) {
+        this.animalName = animalName;
+        this.animalAge = animalAge;
+        this.animalDescription = animalDescription;
+        this.animalStatus = animalStatus;
+    }
+
+    public Long getAnimalId() {
         return animalId;
     }
 
-    public void setAnimalId(long animalId) {
+    public void setAnimalId(Long animalId) {
         this.animalId = animalId;
     }
 
@@ -28,11 +48,11 @@ public class Animal {
         this.animalName = animalName;
     }
 
-    public int getAnimalAge() {
+    public Integer getAnimalAge() {
         return animalAge;
     }
 
-    public void setAnimalAge(int animalAge) {
+    public void setAnimalAge(Integer animalAge) {
         this.animalAge = animalAge;
     }
 

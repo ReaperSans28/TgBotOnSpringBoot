@@ -1,22 +1,42 @@
 package com.zoo.TgBotOnSpringBoot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "shelters")
 public class Shelter {
-    private long shelterId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long shelterId;
+
+    @Column(name = "shelter_info", columnDefinition = "TEXT")
     private String shelterInfo;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "shelter_schedule")
     private String shelterSchedule;
+
+    @Column(name = "shelter_security_contact")
     private String shelterSecurityContact;
 
-    public long getShelterId() {
+    public Shelter() {
+    }
+
+    public Shelter(String shelterInfo, String address, String shelterSchedule, String shelterSecurityContact) {
+        this.shelterInfo = shelterInfo;
+        this.address = address;
+        this.shelterSchedule = shelterSchedule;
+        this.shelterSecurityContact = shelterSecurityContact;
+    }
+
+    public Long getShelterId() {
         return shelterId;
     }
 
-    public void setShelterId(long shelterId) {
+    public void setShelterId(Long shelterId) {
         this.shelterId = shelterId;
     }
 

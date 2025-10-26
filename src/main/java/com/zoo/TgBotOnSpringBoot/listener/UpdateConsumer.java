@@ -20,12 +20,30 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
     private final MessageService messageService;
 
     /**
-     * Конструктор UpdateConsumer.
-     * Инициализирует TelegramClient с заданным токеном (Сейчас токен тестовый и нерабочий).
+     * Конструктор UpdateConsumer для production.
+     * Инициализирует TelegramClient с заданным токеном.
      */
     public UpdateConsumer() {
         this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
         this.messageService = new MessageService(this.telegramClient);
+    }
+
+    /**
+     * Конструктор UpdateConsumer для тестирования.
+     * Позволяет передавать мокированные зависимости.
+     */
+    public UpdateConsumer(OkHttpTelegramClient telegramClient, MessageService messageService) {
+        this.telegramClient = telegramClient;
+        this.messageService = messageService;
+    }
+
+    /**
+     * Конструктор UpdateConsumer для тестирования.
+     * Позволяет передавать только мокированный TelegramClient.
+     */
+    public UpdateConsumer(OkHttpTelegramClient telegramClient) {
+        this.telegramClient = telegramClient;
+        this.messageService = new MessageService(telegramClient);
     }
 
     /**
@@ -42,5 +60,19 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         } else if (update.hasCallbackQuery()) {
             messageService.handleCallbackQuery(update.getCallbackQuery());
         }
+    }
+
+    /**
+     * Геттер для TelegramClient
+     */
+    public OkHttpTelegramClient getTelegramClient() {
+        return telegramClient;
+    }
+
+    /**
+     * Геттер для MessageService
+     */
+    public MessageService getMessageService() {
+        return messageService;
     }
 }

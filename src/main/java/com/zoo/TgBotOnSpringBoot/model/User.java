@@ -1,22 +1,32 @@
 package com.zoo.TgBotOnSpringBoot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "users")
 public class User {
-    
-    private Long userId;
-    private long userTgId;
-    private String userContactDetails;
-    private boolean isVoloteer;
 
-    public User(Long userId, long userTgId, String userContactDetails, boolean isVoloteer){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    @Column(name = "user_tg_id")
+    private Long userTgId;
+
+    @Column(name = "user_contact_details")
+    private String userContactDetails;
+
+    @Column(name = "is_volunteer")
+    private boolean isVolunteer;
+
+    public User() {
+    }
+
+    public User(Long userId, Long userTgId, String userContactDetails, boolean isVolunteer) {
         this.userId = userId;
         this.userTgId = userTgId;
         this.userContactDetails = userContactDetails;
-        this.isVoloteer = isVoloteer;
+        this.isVolunteer = isVolunteer;
     }
 
     public Long getUserId() {
@@ -27,11 +37,11 @@ public class User {
         this.userId = userId;
     }
 
-    public long getUserTgId() {
+    public Long getUserTgId() {
         return userTgId;
     }
 
-    public void setUserTgId(long userTgId) {
+    public void setUserTgId(Long userTgId) {
         this.userTgId = userTgId;
     }
 
@@ -43,11 +53,11 @@ public class User {
         this.userContactDetails = userContactDetails;
     }
 
-    public boolean isIsVoloteer() {
-        return isVoloteer;
+    public boolean isIsVolunteer() {
+        return isVolunteer;
     }
 
-    public void setIsVoloteer(boolean isVoloteer) {
-        this.isVoloteer = isVoloteer;
+    public void setIsVolunteer(boolean isVolunteer) {
+        this.isVolunteer = isVolunteer;
     }
 }
