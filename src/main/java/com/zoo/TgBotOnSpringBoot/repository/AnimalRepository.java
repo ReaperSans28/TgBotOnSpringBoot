@@ -10,6 +10,6 @@ import com.zoo.TgBotOnSpringBoot.model.Animal;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
     
-    @Query(value = "select * from animal where animal_ststus = :status", nativeQuery=true)
+    @Query(value = "select * from animal where animal_status = :status", nativeQuery=true)
     List<Animal> getAnimalsByStatus(@Param("status") String status);
 }
