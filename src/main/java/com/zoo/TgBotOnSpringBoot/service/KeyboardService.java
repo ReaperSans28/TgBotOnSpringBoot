@@ -14,47 +14,19 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
  */
 @Service
 public class KeyboardService {
-
-    /**
-     * Создает клавиатуру для выбора типа приюта
-     *
-     * @return клавиатура с кнопками выбора приюта для кошек или собак
-     */
-    public InlineKeyboardMarkup shelterSelectionKeyboard() {
-        InlineKeyboardButton catButton = InlineKeyboardButton.builder()
-                .text("Приют для кошек")
-                .callbackData("catShelter")
-                .build();
-        InlineKeyboardButton dogButton = InlineKeyboardButton.builder()
-                .text("Приют для собак")
-                .callbackData("dogShelter")
-                .build();
-        InlineKeyboardButton volunteerButton = InlineKeyboardButton.builder()
-                .text("Я - волонтёр")
-                .callbackData("volonteerReg")
-                .build();
-        List<InlineKeyboardRow> keyboardRows = List.of(
-                new InlineKeyboardRow(catButton),
-                new InlineKeyboardRow(dogButton),
-                new InlineKeyboardRow(volunteerButton)
-        );
-
-        return new InlineKeyboardMarkup(keyboardRows);
-    }
-
-    /**
-     * Создает клавиатуру с опциями для приюта собак
-     *
-     * @return клавиатура с кнопками информации об приюте для собак
-     */
-    public InlineKeyboardMarkup dogShelterInfoKeyboard() {
+        /**
+        * Создает клавиатуру с опциями для приюта собак
+        *
+        * @return клавиатура с кнопками информации об приюте для собак
+        */
+        public InlineKeyboardMarkup shelterInfoKeyboard() {
         InlineKeyboardButton infoButton = InlineKeyboardButton.builder()
                 .text("Узнать побольше о приюте")
-                .callbackData("dogShelterInfo")
+                .callbackData("shelterInfo")
                 .build();
         InlineKeyboardButton adoptButton = InlineKeyboardButton.builder()
                 .text("Как взять животное?")
-                .callbackData("adoptDog")
+                .callbackData("adopt")
                 .build();
         InlineKeyboardButton reportButton = InlineKeyboardButton.builder()
                 .text("Прислать отчёт")
@@ -73,25 +45,16 @@ public class KeyboardService {
         );
 
         return new InlineKeyboardMarkup(keyboardRows);
-    }
+        }
 
-    /**
-     * Создает клавиатуру с опциями для приюта кошек
-     *
-     * @return клавиатура с кнопками информации об приюте для кошек
-     */
-    public InlineKeyboardMarkup catShelterInfoKeyboard() {
-        InlineKeyboardButton infoButton = InlineKeyboardButton.builder()
-                .text("Узнать побольше о приюте")
-                .callbackData("catShelterInfo")
+        public InlineKeyboardMarkup HowToAdopt() {
+                InlineKeyboardButton animalList = InlineKeyboardButton.builder()
+                .text("Список доступных для усыновления животных")
+                .callbackData("animalList")
                 .build();
-        InlineKeyboardButton adoptButton = InlineKeyboardButton.builder()
-                .text("Как взять животное?")
-                .callbackData("adoptCat")
-                .build();
-        InlineKeyboardButton reportButton = InlineKeyboardButton.builder()
-                .text("Прислать отчёт")
-                .callbackData("report")
+        InlineKeyboardButton userContactDetails = InlineKeyboardButton.builder()
+                .text("Записать мои контактные данные")
+                .callbackData("userContactDetails")
                 .build();
         InlineKeyboardButton volunteerButton = InlineKeyboardButton.builder()
                 .text("Позвать волонтёра")
@@ -99,21 +62,38 @@ public class KeyboardService {
                 .build();
 
         List<InlineKeyboardRow> keyboardRows = List.of(
-                new InlineKeyboardRow(infoButton),
-                new InlineKeyboardRow(adoptButton),
-                new InlineKeyboardRow(reportButton),
+                new InlineKeyboardRow(animalList),
+                new InlineKeyboardRow(userContactDetails),
                 new InlineKeyboardRow(volunteerButton)
         );
 
         return new InlineKeyboardMarkup(keyboardRows);
-    }
+        }
 
-    /**
-     * Создает кнопку для экстренного вызова волонтера
-     *
-     * @return клавиатура с одной кнопкой вызова волонтера
-     */
-    public InlineKeyboardMarkup emergencyButton() {
+        public InlineKeyboardMarkup aboutShelter() {
+        InlineKeyboardButton userContactDetails = InlineKeyboardButton.builder()
+                .text("Записать мои контактные данные")
+                .callbackData("userContactDetails")
+                .build();
+        InlineKeyboardButton volunteerButton = InlineKeyboardButton.builder()
+                .text("Позвать волонтёра")
+                .callbackData("callVolonteer")
+                .build();
+        
+        List<InlineKeyboardRow> keyboardRows = List.of(
+                new InlineKeyboardRow(userContactDetails),
+                new InlineKeyboardRow(volunteerButton)
+        );
+
+        return new InlineKeyboardMarkup(keyboardRows);
+        }
+
+        /**
+        * Создает кнопку для экстренного вызова волонтера
+        *
+        * @return клавиатура с одной кнопкой вызова волонтера
+        */
+        public InlineKeyboardMarkup emergencyButton() {
         InlineKeyboardButton volunteerButton = InlineKeyboardButton.builder()
                 .text("Позвать волонтёра")
                 .callbackData("callVolonteer")
@@ -121,5 +101,5 @@ public class KeyboardService {
 
         List<InlineKeyboardRow> keyboardRow = List.of(new InlineKeyboardRow(volunteerButton));
         return new InlineKeyboardMarkup(keyboardRow);
-    }
+        }
 }

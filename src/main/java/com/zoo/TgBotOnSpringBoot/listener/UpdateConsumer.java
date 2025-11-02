@@ -1,12 +1,14 @@
 package com.zoo.TgBotOnSpringBoot.listener;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.util.LongPollingSingleThreadUpdateConsumer;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import com.zoo.TgBotOnSpringBoot.service.CallbackService;
+import com.zoo.TgBotOnSpringBoot.service.AnimalService;
 import com.zoo.TgBotOnSpringBoot.service.MessageService;
+import com.zoo.TgBotOnSpringBoot.service.UserService;
 
 /**
  * Класс UpdateConsumer отвечает за обработку обновлений от Telegram.
@@ -18,17 +20,34 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
      * Клиент для отправки запросов к Telegram API.
      */
     private final OkHttpTelegramClient telegramClient;
-    private final CallbackService callbackService;
     private final MessageService messageService;
 
     /**
-     * Конструктор UpdateConsumer.
-     * Инициализирует TelegramClient с заданным токеном (Сейчас токен тестовый и нерабочий).
+     * Конструктор UpdateConsumer для production.
+     * Инициализирует TelegramClient с заданным токеном.
      */
-    public UpdateConsumer() {
+    @Autowired
+    public UpdateConsumer(UserService userService, AnimalService animalService) {
         this.telegramClient = new OkHttpTelegramClient("8037617513:AAHJA2LiEpQdHvl6nUzBq3LSXLNwGbJi7gQ");
-        this.callbackService = new CallbackService(this.telegramClient);
-        this.messageService = new MessageService(this.telegramClient);
+        this.messageService = new MessageService(this.telegramClient, userService, animalService);
+    }
+
+    /**
+     * Конструктор UpdateConsumer для тестирования.
+     * Позволяет передавать мокированные зависимости.
+     */
+    public UpdateConsumer(OkHttpTelegramClient telegramClient, MessageService messageService) {
+        this.telegramClient = telegramClient;
+        this.messageService = messageService;
+    }
+
+    /**
+     * Конструктор UpdateConsumer для тестирования.
+     * Позволяет передавать только мокированный TelegramClient.
+     */
+    public UpdateConsumer(OkHttpTelegramClient telegramClient, UserService userService, AnimalService animalService) {
+        this.telegramClient = telegramClient;
+        this.messageService = new MessageService(telegramClient, userService, animalService);
     }
 
     /**
@@ -43,7 +62,21 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
         if (update.hasMessage()) {
             messageService.handleMessage(update.getMessage());
         } else if (update.hasCallbackQuery()) {
-            callbackService.handleCallbackQuery(update.getCallbackQuery());
+            messageService.handleCallbackQuery(update.getCallbackQuery());
         }
+    }
+
+    /**
+     * Геттер для TelegramClient
+     */
+    public OkHttpTelegramClient getTelegramClient() {
+        return telegramClient;
+    }
+
+    /**
+     * Геттер для MessageService
+     */
+    public MessageService getMessageService() {
+        return messageService;
     }
 }
