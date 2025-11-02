@@ -8,11 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.zoo.TgBotOnSpringBoot.model.User;
 
-
 public interface UserRepository extends JpaRepository<User, Long> {
     
     Optional<User> findByUserTgId(long userTgId);
 
-    @Query(value = "select * from users where is_volonteer = True", nativeQuery=true)
+    @Query(value = "select * from users where is_volunteer = True", nativeQuery=true)
     List<User> getAllVolonteers();
 }

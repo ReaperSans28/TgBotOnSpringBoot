@@ -29,15 +29,18 @@ public class MessageService {
     private final KeyboardService keyboardService;
     private final UserService userService;
     private final AnimalService animalService;
+    
+    List<Long> stateContactDetails;
+    List<Long> stateReport;
 
-    List<Long> stateContactDetails = new ArrayList<>();
-    List<Long> stateReport = new ArrayList<>();
-
-    public MessageService(OkHttpTelegramClient telegramClient) {
+    public MessageService(OkHttpTelegramClient telegramClient, UserService userService, AnimalService animalService) {
         this.telegramClient = telegramClient;
-        this.userService = new UserService();
+        this.userService = userService;
         this.keyboardService = new KeyboardService();
-        this.animalService = new AnimalService();
+        this.animalService = animalService;
+
+        this.stateContactDetails = new ArrayList<>();
+        this.stateReport = new ArrayList<>();
     }
 
     /**
